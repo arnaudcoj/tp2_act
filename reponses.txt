@@ -82,3 +82,14 @@ si (point_suivant n'existe pas)
 sinon si (point_suivant.y < h)
     insérer (d, h) et se placer après
     insérer (d, point_suivant.y)
+
+----------
+
+Création d'une nouvelle liste de points
+
+pour chaque triplet
+     algo_précédent(liste, triplet)
+
+
+QUESTION 6
+
