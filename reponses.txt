@@ -22,6 +22,7 @@ QUESTION 3
 
 QUESTION 4
 
+FAUX
 pour i = 0 à n
   pour j = 0 à hi
     t[gi][j] = true
@@ -44,7 +45,40 @@ tant que (i < t.size)
         j--
       on écrit le sommet
   i++
-     
+
+
 QUESTION 5
 
+//on avance sur l'axe des abscisses jusqu'au premier point supérieur à  g
+tant que (point_suivant existe && point_suivant.x < g)
+    avancer le point suivant
 
+//on insère 2 point représentant la ligne verticale gauche
+si (point_suivant n'existe pas)
+    insérer (g, 0) et se placer après
+    insérer (g, h) et se placer après
+sinon si (point_suivant.y < h)
+    insérer (g, point_suivant.y) et se placer après
+    insérer (g, h) et se placer après
+sinon
+    tant que (point_suivant.y >= h && point_suivant existe)
+    avancer le point_suivant
+
+//de g à d
+//on efface les lignes de toit dont la hauteur est inférieure à h
+//si on rencontre une ligne de toit plus haute, on inscrit les points correspondant à l'intersection de l'immeuble que l'on veut dessiner et de celui que l'on vient de rencontrer et on n'efface rien
+tant que (point_suivant existe && point_suivant.x <= d)
+    si (point_suivant.y > h)
+        insérer (point_suivant.x, h) et se placer après
+	tant que (point_suivant existe && point_suivant.x <= d && point_suivant.y > h)
+	     avancer le point suivant
+	insérer (point_suivant.x, h) et se placer après
+    sinon
+	retirer le point suivant de la liste (et récupérer celui d'après)
+
+si (point_suivant n'existe pas)
+    insérer (d, h) et se placer après
+    insérer (d, 0)
+sinon si (point_suivant.y < h)
+    insérer (d, h) et se placer après
+    insérer (d, point_suivant.y)
