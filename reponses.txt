@@ -22,29 +22,32 @@ QUESTION 3
 
 QUESTION 4
 
-FAUX
-pour i = 0 à n
-  pour j = 0 à hi
-    t[gi][j] = true
-  pour j = gi à di
-    t[j][hi] = true
-  pour j = hi à 0
-    t[di][j] = true
+n étant le nombre d'immeubles (liste de triplets d'entiers (g,h,d))
+et t un tableau à 2 dimensions de booléens
 
-i,j = 0
+pour i=0 à n
+	pour j=gi à di
+		pour k=gi à hi
+			t[j][k] = true
 
-tant que (i < t.size)
-  si (t[i][j+1] == true)
-      on écrit le sommet
-      tant que (t[i][j] == t[i][j+1])
-        j++
-      on écrit le sommet
-  sinon si (t[i][j-1] == true)
-      on écrit le sommet
-      tant que (t[i][j] == t[i][j-1])
-        j--
-      on écrit le sommet
-  i++
+i,j=0
+
+tant que i<t.size 
+	si t[i][j] == true
+		on écrit le sommet
+		si t[i][j+1] == true
+			tant que t[i][j+1] == true
+				on écrit le sommet
+				j++ 
+		sinon si t[i][j-1] == true
+			tant que t[i][j-1] == true
+				on écrit le sommet
+				j-- 
+	sinon
+		i++
+	
+
+En supposant n la taille du tableau de booléens, la complexité serait en O(n3).
 
 
 QUESTION 5
