@@ -34,12 +34,12 @@ public class Line {
 	int h2 = 0;
 
 	while(pt1.x != -1 && pt2.x != -1) {
-	    if(pt1.x < pt2.x || /* pas sur */(pt1.x == pt2.x && pt1.y > pt2.y)) {
+	    if(pt1.x < pt2.x) {
 		h1 = pt1.y;
 		newLine.add(new Point(pt1.x, Integer.max(h1, h2)));
 		if(it1.hasNext())
 		    pt1 = it1.next();
-	    } else /*if(pt1.x > pt2.x || (pt1.x == pt2.x && pt1.y > pt2.y)) */{
+	    } else {
 		h2 = pt2.y;
 		newLine.add(new Point(pt2.x, Integer.max(h1, h2)));
 		if(it2.hasNext())
@@ -49,13 +49,11 @@ public class Line {
 
 
 	while(pt1.x != -1 && it1.hasNext()) {
-	System.out.println("1 = " + pt1.x);
 	    newLine.add(pt1);
 	    pt1 = it1.next();
 	}
 
 	while(pt2.x != -1 && it2.hasNext()) {
-	System.out.println("2 = " + pt2.x);
 	    newLine.add(pt2);
 	    pt2 = it2.next();
 	}
