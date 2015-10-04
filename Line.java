@@ -19,6 +19,9 @@ public class Line {
 
     static List<Point> mergeSkyLines(List<Point> line1, List<Point> line2) {
 
+	line1.add(new Point(-1,-1));
+	line2.add(new Point(-1,-1));
+	
 	List<Point> newLine = new LinkedList<Point>();
 	
 	Iterator<Point> it1 = line1.iterator();
@@ -30,23 +33,33 @@ public class Line {
 	int h1 = 0;
 	int h2 = 0;
 
-	while(true) {
+	while(pt1.x != -1 && pt2.x != -1) {
 	    if(pt1.x < pt2.x || /* pas sur */(pt1.x == pt2.x && pt1.y > pt2.y)) {
 		h1 = pt1.y;
 		newLine.add(new Point(pt1.x, Integer.max(h1, h2)));
 		if(it1.hasNext())
 		    pt1 = it1.next();
-		else
-		    break;
 	    } else /*if(pt1.x > pt2.x || (pt1.x == pt2.x && pt1.y > pt2.y)) */{
 		h2 = pt2.y;
 		newLine.add(new Point(pt2.x, Integer.max(h1, h2)));
 		if(it2.hasNext())
 		    pt2 = it2.next();
-		else
-		    break;
 	    }
 	}
+
+
+	while(pt1.x != -1 && it1.hasNext()) {
+	System.out.println("1 = " + pt1.x);
+	    newLine.add(pt1);
+	    pt1 = it1.next();
+	}
+
+	while(pt2.x != -1 && it2.hasNext()) {
+	System.out.println("2 = " + pt2.x);
+	    newLine.add(pt2);
+	    pt2 = it2.next();
+	}
+	
 	
 	return deleteDuplicate(newLine);
     }
