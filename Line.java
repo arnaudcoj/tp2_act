@@ -5,6 +5,17 @@ import java.util.Iterator;
 public class Line {
 
     public static void main(String[] args) {
+	q7result();
+	return;
+    }
+
+    static void q7result() {
+	List<Triplet> triplets = createTripletList(new Triplet(3,13,9), new Triplet(1,11,5), new Triplet(19,18,22), new Triplet(3,6,7), new Triplet(16,3,25), new Triplet(12,7,16));
+	List<Point> mergedLine = mergeTripletList(triplets);
+	printPointsList(mergedLine);
+    }
+    
+    static void q6result() {
 	List<Point> points1 = createPointsList(new Point(1,10), new Point(5,6), new Point(8,0), new Point(10,8), new Point(12,0));
 	printPointsList(points1);
 	
@@ -12,11 +23,43 @@ public class Line {
 	printPointsList(points2);
 	
 	List<Point> mergedLine = mergeSkyLines(points1, points2);
-	printPointsList(mergedLine);
-	
-	return;
+	printPointsList(mergedLine);	
     }
 
+    static List<Point> mergeTripletList(List<Triplet> triplets) {
+	List<List<Point>> skyLines = new LinkedList<List<Point>>();
+	for(Triplet triplet : triplets)
+	    skyLines.add(triplet.toSkyLine());
+
+	return foldSkyLines(skyLines);
+    }
+
+    static List<Point> foldSkyLines(List<List<Point>> skyLineList) {
+
+	Iterator<List<Point>> it = skyLineList.iterator();
+	List<Point> line1;
+	List<Point> line2;
+	List<Point> mergedLine;
+	
+	if (!it.hasNext())
+	    throw new IllegalArgumentException();
+
+	line1 = it.next();
+	it.remove();
+	
+	if(!it.hasNext())
+	    return line1;
+
+	line2 = it.next();
+	it.remove();
+	
+	mergedLine = mergeSkyLines(line1, line2);
+
+	skyLineList.add(mergedLine);
+	
+	return foldSkyLines(skyLineList);
+    }
+	
     static List<Point> mergeSkyLines(List<Point> line1, List<Point> line2) {
 
 	line1.add(new Point(-1,-1));
@@ -34,7 +77,7 @@ public class Line {
 	int h2 = 0;
 
 	while(pt1.x != -1 && pt2.x != -1) {
-	    if(pt1.x < pt2.x) {
+	    if(pt1.x < pt2.x || (pt1.x == pt2.x && pt1.y > pt2.y)) {
 		h1 = pt1.y;
 		newLine.add(new Point(pt1.x, Integer.max(h1, h2)));
 		if(it1.hasNext())
@@ -89,6 +132,16 @@ public class Line {
 	
 	for (Point pt : points) {
 	    newList.add(pt);
+	}
+
+	return newList;
+    }
+    
+    static List<Triplet> createTripletList(Triplet...triplets) {
+	List<Triplet> newList = new LinkedList<Triplet>();
+	
+	for (Triplet tr : triplets) {
+	    newList.add(tr);
 	}
 
 	return newList;

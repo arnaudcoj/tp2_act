@@ -1,3 +1,6 @@
+import java.awt.Point;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Triplet
 {
@@ -5,23 +8,29 @@ public class Triplet
     private int b;
     private int c;
 
-    Triplet(int a, int b, int c)
+    public Triplet(int a, int b, int c)
     {
 	this.a = a;
 	this.b = b;
 	this.c = c;
     }
 
-    int getA() {
+    public int getA() {
 	return a;
     }
     
-    int getB() {
+    public int getB() {
 	return b;
     }
     
-    int getC() {
+    public int getC() {
 	return c;
     }
-    
+
+    public List<Point> toSkyLine() {
+	List<Point> skyLine = new LinkedList<Point>();
+	skyLine.add(new Point(a, b));
+	skyLine.add(new Point(c, 0));
+	return skyLine;
+    }
 }
