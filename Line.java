@@ -1,0 +1,64 @@
+import java.awt.Point;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Iterator;
+public class Line {
+
+    public static void main(String[] args) {
+	List<Point> points1 = createPointsList(new Point(1,10), new Point(5,6), new Point(8,0), new Point(10,8), new Point(12,0));
+	printPointsList(points1);
+	
+	List<Point> points2 = createPointsList(new Point(0,0), new Point(2,12), new Point(7,0), new Point(9,4), new Point(11,2), new Point(14,0));
+	printPointsList(points2);
+	
+	List<Point> mergedLine = mergeSkyLines(points1, points2);
+	printPointsList(mergedLine);
+	
+	return;
+    }
+
+    static List<Point> mergeSkyLines(List<Point> line1, List<Point> line2) {
+
+	List<Point> newLine = new LinkedList<Point>();
+	
+	Iterator<Point> it1 = line1.iterator();
+	Iterator<Point> it2 = line2.iterator();
+	
+	Point pt1 = it1.next();
+	Point pt2 = it2.next();
+	
+	int h1 = 0;
+	int h2 = 0;
+
+	while(it1.hasNext() && it2.hasNext()) {
+	    if(pt1.x < pt2.x || /* pas sur */(pt1.x == pt2.x && pt1.y > pt2.y)) {
+		h1 = pt1.y;
+		newLine.add(new Point(pt1.x, Integer.max(h1, h2)));
+		pt1 = it1.next();
+	    } else /*if(pt1.x > pt2.x || (pt1.x == pt2.x && pt1.y > pt2.y)) */{
+		h2 = pt2.y;
+		newLine.add(new Point(pt2.x, Integer.max(h1, h2)));
+		pt2 = it2.next();
+	    }
+	}
+	    
+	
+	return newLine;
+    }
+	
+    static void printPointsList(List<Point> points) {
+	for(Point pt : points)
+	    System.out.print("(" + pt.x + "," + pt.y + ") ");
+	System.out.println("");
+    }
+    
+    static List<Point> createPointsList(Point...points) {
+	LinkedList<Point> newList = new LinkedList<Point>();
+	
+	for (Point pt : points) {
+	    newList.add(pt);
+	}
+
+	return newList;
+    }
+}
