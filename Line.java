@@ -2,9 +2,14 @@ import java.awt.Point;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.lang.Math;
+import java.io.FileWriter;
+import java.io.File;
+
 public class Line {
 
     public static void main(String[] args) {
+	q6result();
 	q7result();
 	return;
     }
@@ -13,6 +18,7 @@ public class Line {
 	List<Triplet> triplets = createTripletList(new Triplet(3,13,9), new Triplet(1,11,5), new Triplet(19,18,22), new Triplet(3,6,7), new Triplet(16,3,25), new Triplet(12,7,16));
 	List<Point> mergedLine = mergeTripletList(triplets);
 	printPointsList(mergedLine);
+	printSkyLineSVG(mergedLine,"q7SkyLine.svg");
     }
     
     static void q6result() {
@@ -23,7 +29,8 @@ public class Line {
 	printPointsList(points2);
 	
 	List<Point> mergedLine = mergeSkyLines(points1, points2);
-	printPointsList(mergedLine);	
+	printPointsList(mergedLine);
+	printSkyLineSVG(mergedLine, "q6SkyLine.svg");
     }
 
     static List<Point> mergeTripletList(List<Triplet> triplets) {
@@ -79,12 +86,12 @@ public class Line {
 	while(pt1.x != -1 && pt2.x != -1) {
 	    if(pt1.x < pt2.x || (pt1.x == pt2.x && pt1.y > pt2.y)) {
 		h1 = pt1.y;
-		newLine.add(new Point(pt1.x, Integer.max(h1, h2)));
+		newLine.add(new Point(pt1.x, Math.max(h1, h2)));
 		if(it1.hasNext())
 		    pt1 = it1.next();
 	    } else {
 		h2 = pt2.y;
-		newLine.add(new Point(pt2.x, Integer.max(h1, h2)));
+		newLine.add(new Point(pt2.x, Math.max(h1, h2)));
 		if(it2.hasNext())
 		    pt2 = it2.next();
 	    }
@@ -145,5 +152,26 @@ public class Line {
 	}
 
 	return newList;
+    }
+
+    static void printSkyLineSVG(List<Point> points, String fileName) {
+	File f = new File(fileName);
+	try {
+	    FileWriter fw = new FileWriter(f);
+	    fw.write("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"300\" height=\"300\" viewBox=\"-10 -150 200 150\">");
+	    String skyLine = new String();
+	    skyLine = (int)points.get(0).getX() + "," + 0 + " ";
+	    skyLine += (int)points.get(0).getX() + "," + (int)points.get(0).getY() + " ";
+	    for (int i=1; i<points.size(); i++) {
+		skyLine += (int)points.get(i).getX() + "," + (int)points.get(i-1).getY() + " ";
+		skyLine += (int)points.get(i).getX() + "," + (int)points.get(i).getY() + " ";
+	    }
+	    fw.write(" <polyline points= \"" + skyLine + "\" stroke=\"green\" stroke-width=\"1\" fill=\"none\" transform=\" scale(5,-5) \" /></svg>");
+
+	    fw.close();
+	}
+	catch (Exception exception) {
+	    System.out.println ("Erreur lors de l'ouverture du fichier : " + exception.getMessage());
+	}
     }
 }
