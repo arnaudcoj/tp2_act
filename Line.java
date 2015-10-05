@@ -158,7 +158,7 @@ public class Line {
 	File f = new File(fileName);
 	try {
 	    FileWriter fw = new FileWriter(f);
-	    fw.write("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"300\" height=\"300\" viewBox=\"-10 -150 200 150\">");
+	    fw.write("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"600\" height=\"600\" viewBox=\"-10 -150 200 150\">");
 	    String skyLine = new String();
 	    skyLine = (int)points.get(0).getX() + "," + 0 + " ";
 	    skyLine += (int)points.get(0).getX() + "," + (int)points.get(0).getY() + " ";
@@ -166,7 +166,7 @@ public class Line {
 		skyLine += (int)points.get(i).getX() + "," + (int)points.get(i-1).getY() + " ";
 		skyLine += (int)points.get(i).getX() + "," + (int)points.get(i).getY() + " ";
 	    }
-	    fw.write(" <polyline points= \"" + skyLine + "\" stroke=\"green\" stroke-width=\"1\" fill=\"none\" transform=\" scale(5,-5) \" /></svg>");
+	    fw.write(" <polyline points= \"" + skyLine + "\" stroke=\"black\" stroke-width=\"0.2\" fill=\"lightblue\" transform=\" scale(5,-5) \" /></svg>");
 
 	    fw.close();
 	}
