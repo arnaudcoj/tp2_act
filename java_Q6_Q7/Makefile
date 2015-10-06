@@ -11,4 +11,4 @@ execute:Main.class
 	java Main
 
 clean:
-	rm -rf *~ *.class
+	rm -rf *~ *.class *.svg
