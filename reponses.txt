@@ -21,6 +21,34 @@ QUESTION 3
 (1, 0)(1, 1)(5, 1)(5, 13)(9, 13)(9, 20)(12, 20)(12, 27)(16, 27)(16, 3)(19, 3)(19, 0)(22, 0)(22, 3)(25, 3)(25, 0)
 
 QUESTION 4
+-------------------------Rémy------------------------------------------
+n étant le nombre d'immeubles (liste de triplets d'entiers (g,h,d))
+et t un tableau à 2 dimensions de booléens
+
+pour i=0 à n
+	pour j=gi à di
+		pour k=gi à hi
+			t[j][k] = true
+
+i,j=0
+
+tant que i<t.size 
+	si t[i][j] == true
+		on écrit le sommet
+		si t[i][j+1] == true
+			tant que t[i][j+1] == true
+				on écrit le sommet
+				j++ 
+		sinon si t[i][j-1] == true
+			tant que t[i][j-1] == true
+				on écrit le sommet
+				j-- 
+	sinon
+		i++
+	
+En supposant n la taille du tableau de booléens, la complexité serait en O(n3).
+Cet algorithme n'est pas avantageux car il peut balayer plusieurs fois la même zone
+----------------------------------------------------------------------------
 
 n étant le nombre d'immeubles (liste de triplets d'entiers (g,h,d))
 et t un tableau à 2 dimensions de booléens
@@ -92,7 +120,13 @@ Création d'une nouvelle liste de points
 
 pour chaque triplet
      algo_précédent(liste, triplet)
+     
+La complexité est en O(n)
 
 
 QUESTION 6
+voir Line.java
 
+
+QUESTION 7
+voir Line.java et Triplet.java
