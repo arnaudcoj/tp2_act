@@ -64,7 +64,7 @@ sinon si (point_suivant.y < h)
     insérer (g, point_suivant.y) et se placer après
     insérer (g, h) et se placer après
 sinon
-    tant que (point_suivant.y >= h && point_suivant existe)
+    tant que (point_suivant existe && point_suivant.y >= h)
     avancer le point_suivant
 
 //de g à d
@@ -75,9 +75,9 @@ tant que (point_suivant existe && point_suivant.x <= d)
         insérer (point_suivant.x, h) et se placer après
 	tant que (point_suivant existe && point_suivant.x <= d && point_suivant.y > h)
 	     avancer le point suivant
-	insérer (point_suivant.x, h) et se placer après
+	insérer (point_suivant.x, h) et se placer après //pas correct a certains moments
     sinon
-	retirer le point suivant de la liste (et récupérer celui d'après)
+	retirer le point suivant de la liste (et point_suivant = celui d'après)
 
 si (point_suivant n'existe pas)
     insérer (d, h) et se placer après
